@@ -1,96 +1,85 @@
 <!DOCTYPE html>
-<html lang="ko">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Quiz</title>
-  <link rel="stylesheet" href="stylesheets/result.css">
-  <link rel="stylesheet" href="stylesheets/basic.css">
-</head>
-
-<body>
-
-  <header>
-    <img src="/images/list.png" id="listBtn" onclick="openBox()">
-    <a href="/main" id="gotoMain"><h1 id="title">Quiz</h1></a>
-    <a href="/signup" class="login" id="signUp">회원가입</a>
-    <a href="/signin" class="login" id="signIn">로그인</a>
-  </header>
-
-  <article>
-    <section id="box">
-      <span id="resultTitle">Result</span><br>
-      <div style="margin-top: 50px">
-          <table>
-            <tr>
-              <td>
-                <label for="hitNumber" id="hitNumber">@@</label>
-                <label for="hitNumber" id="hNComment">개를 맞추셨습니다</label>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label for="score" id="score">@@</label>
-                <label for="score" id="sComment">점</label>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button type="submit" id="submit" onmouseover="changeColor()" onmouseout="backColor()">메인으로 가기</button>
-              </td>
-            </tr>
-          </table>
-      </div>
-    </section>
-
-  </article>
-  <nav>
-    <section id="listBox">
-      <img src="/images/list.png" alt="" id="listBtn2" onclick="closeBox()">
-      <h1 id="titleInBox">Quiz</h1>
-      <span id="userName">Sunrin</span>
-      <hr>
-      <h2 class="listIndex">Quiz</h2>
-      <p class="quizIndex">상식</p>
-      <p class="quizIndex">IT</p>
-      <p class="quizIndex">수도</p>
-      <p class="quizIndex">넌센스</p>
-      <p class="quizIndex">과학</p>
-      <p class="quizIndex">영어</p>
-      <p class="quizIndex">연예</p>
-      <p class="quizIndex">선린</p>
-      <p class="quizIndex">사회</p>
-      <p class="quizIndex">브랜드</p>
-    </section>
-  </nav>
-  <footer>
-    <span id="footer">제작 : 10509 김수빈, 10522 임성우, 10523 정우창<br>제작 기간 : 2018/11/15 ~ 2018/12/??<br><br><br>Copyright 2018, Comsiil. All right reserved.</span>
-  </footer>
-
-</body>
-
-<script>
-  function openBox() {
-    document.getElementById("listBox").style.width = "300px"
-    document.getElementById("listBtn2").style.width = "40px"
-  }
-
-  function closeBox() {
-    document.getElementById("listBox").style.width = "0px"
-    document.getElementById("listBtn2").style.width = "0px"
-  }
-
-  function changeColor() {
-    var a = document.getElementById("submit");
-    a.style.color = "#00a44a";
-    a.style.backgroundColor = "white";
-  }
-
-  function backColor() {
-    var a = document.getElementById("submit");
-    a.style.color = "white";
-    a.style.backgroundColor = "#00a44a";
-  }
-</script>
-
-</html>
+  <html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="stylesheets/result.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
+    <link rel="stylesheet" href="stylesheets/basic.css">
+    <script src="scripts/basicJs.js"></script>
+  </head>
+  <body onload="loginCheck(${req.isAuthenticated()})">
+    <header>
+      <img src="/images/list.png" id="listBtn" onclick="openBox()">
+      <a href="/" id="gotoMain"><h1 id="title">Quiz</h1></a>
+      <a href="/signup" class="login" id="signUpBtn" style="margin-right: 10%">회원가입</a>&nbsp;
+      <a href="/signin" class="login" id="signInBtn">로그인</a>
+    </header>
+    <article>
+      <section id="box" style="margin-top: 150px;">
+        <span id="resultTitle">Result</span><br>
+        <div style="margin-top: 50px">
+            <table>
+              <tr>
+                <td>
+                  <label for="hitNumber" id="hitNumber">${lastSolvedQuiz}</label>
+                  <label for="hitNumber" id="hNComment">개를 맞추셨습니다</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="score" id="score">${lastScore}</label>
+                  <label for="score" id="sComment">점</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/"><button type="submit" id="submit" onmouseover="changeColor()" onmouseout="backColor()">메인으로 가기</button></a>
+                </td>
+              </tr>
+            </table>
+        </div>
+      </section>
+    </article>
+    <nav>
+      <section id="listBox">
+        <img src="/images/list.png" alt="" id="listBtn2" onclick="closeBox()">
+        <h1 id="titleInBox">Quiz</h1>
+        <span id="userName">${req.user.name}</span>
+        <hr>
+        <h2 class="listIndex">Quiz</h2>
+        <a href="/knowlege/1"><p class="quizIndex">상식</p></a>
+        <a href="/IT/1"><p class="quizIndex">IT</p></a>
+        <a href="/capital/1"><p class="quizIndex">수도</p></a>
+        <a href="/az/1"><p class="quizIndex">넌센스</p></a>
+        <a href="/science/1"><p class="quizIndex">과학</p></a>
+        <a href="/english/1"><p class="quizIndex">영어</p></a>
+        <a href="/enter/1"><p class="quizIndex">연예</p></a>
+        <a href="/social/1"><p class="quizIndex">사회</p></a>
+      </section>
+    </nav>
+    <footer style="position: fixed; bottom: 0; width: 100%;">
+      <span id="footer">제작 : 10509 김수빈, 10522 임성우, 10523 정우창<br>제작 기간 : 2018/11/15 ~ 2018/12/03<br><br><br>Copyright 2018, Comsiil. All right reserved.</span>
+    </footer>
+  </body>
+  <script>
+    function openBox() {
+      document.getElementById("listBox").style.width = "300px"
+      document.getElementById("listBtn2").style.width = "40px"
+    }
+    function closeBox() {
+      document.getElementById("listBox").style.width = "0px"
+      document.getElementById("listBtn2").style.width = "0px"
+    }
+    function changeColor() {
+      var a = document.getElementById("submit");
+      a.style.color = "#00a44a";
+      a.style.backgroundColor = "white";
+    }
+    function backColor() {
+      var a = document.getElementById("submit");
+      a.style.color = "white";
+      a.style.backgroundColor = "#00a44a";
+    }
+  </script>
+  </html>
