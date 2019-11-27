@@ -1,3 +1,5 @@
 from django.shortcuts import render
+from quiz.models import Quiz,Choice
 
-# Create your views here.
+def display(request, quiz_category, quiz_number):
+    pass
