@@ -16,10 +16,14 @@
     <a href="signin" class="login" id="signInBtn" style="margin-right: 10%">로그인</a>
 </header>
 
+{% block content %}
 <article style="margin-top: 150px">
     <section id="box">
         <h1>회원가입</h1>
-        <form action="/signup" method="post">
+
+
+        <form action="{% url 'signup'%}" method="post">
+        {% csrf_token %}
             <table>
                 <tr>
                     <td>
@@ -52,6 +56,8 @@
         </form>
     </section>
 </article>
+
+{% endblock content %}
 
 <footer style="position: fixed;
     bottom: 0;
